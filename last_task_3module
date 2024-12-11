@@ -1,0 +1,31 @@
+data_structure = [
+     [1, 2, 3],
+     {'a': 4, 'b': 5},
+     (6, {'cube': 7, 'drum': 8}),
+     "Hello",
+     ((), [{(2, 'Urban', ('Urban2', 35))}])
+     ]
+
+def calculate_structure_sum(*args, result=0):
+    for type_value in args:
+        if isinstance(type_value, int):
+            result += type_value
+        elif isinstance(type_value, str):
+            result += len(type_value)
+        elif isinstance(type_value, tuple):
+            for i in type_value:
+                result = calculate_structure_sum(i,result)
+        elif isinstance(type_value, list):
+            for i in type_value:
+                result = calculate_structure_sum(i, result)
+        elif isinstance(type_value, dict):
+            for k, v in type_value.items():
+                result = calculate_structure_sum(k,v, result)
+        elif isinstance(type_value, set):
+            for i in type_value:
+                result = calculate_structure_sum(i, result)
+
+    return result
+
+result = calculate_structure_sum(data_structure)
+print(result)
